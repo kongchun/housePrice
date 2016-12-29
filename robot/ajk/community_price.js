@@ -23,7 +23,7 @@ function getAnJukePoint(info) {
 }
 
 function getAnJukePrice(info) {
-	console.log(info, "info")
+	//console.log(info, "info")
 	var upDown = "up";
 	var fc = parseFloat(info.midChange ? info.midChange : 0)
 	if (fc < 0) {
@@ -37,12 +37,26 @@ function getAnJukePrice(info) {
 		upDown,
 		price
 	}
-}
+};
 
+export var clearPrice = function(table) {
+	db.close();
+	return db.open(table).then(function() {
+		return db.collection.updateMany({}, {
+			$set: {
+				price: null
+			}
+		})
+	}).then(function() {
+		return;
+		console.log("clear price");
+	})
+}
 
 export var updatePrice = function(table, geoURL) {
 	db.close();
-	db.open(table).then(function() {
+	let date = new Date();
+	return db.open(table).then(function() {
 		return db.collection.find({
 			price: null
 		}, {
@@ -62,6 +76,7 @@ export var updatePrice = function(table, geoURL) {
 						//var point = getAnJukePoint(info);
 						//var commId = info.commId;
 					var _id = it._id
+
 					return {
 						compare,
 						upDown,
@@ -83,7 +98,8 @@ export var updatePrice = function(table, geoURL) {
 						price: data.price,
 						//commId: data.id,
 						upDown: data.upDown,
-						//point: data.point
+						date: date
+							//point: data.point
 					}
 				}).then(function() {
 					console.log(search, "price success")
@@ -98,7 +114,8 @@ export var updatePrice = function(table, geoURL) {
 		})
 	}).then(function() {
 		db.close();
-		console.log("success");
+		console.log("updatePrice success");
+		return null;
 	})
 }
 
@@ -116,9 +133,9 @@ function getCommunityById(url) {
 }
 
 export var updateInfoPrice = function(table, url) {
-
+	let date = new Date();
 	db.close();
-	db.open(table).then(function() {
+	return db.open(table).then(function() {
 		return db.collection.find({
 			price: null
 		}, {
@@ -127,8 +144,9 @@ export var updateInfoPrice = function(table, url) {
 	}).then(function(arr) {
 		return helper.iteratorArr(arr, function(it) {
 			var u = url + it.anjukeId;
+			console.log(u)
 			return getCommunityById(u).then(function($) {
-
+				console.log($.text())
 				var _id = it._id;
 				var price = parseFloat($(".comm-avg-price").text());
 				var $strong = $(".price-tip strong");
@@ -155,7 +173,8 @@ export var updateInfoPrice = function(table, url) {
 						compare: data.compare,
 						price: data.price,
 						//commId: data.id,
-						upDown: data.upDown
+						upDown: data.upDown,
+						date: date
 							//point: data.point
 					}
 				}).then(function(t) {
@@ -172,12 +191,75 @@ export var updateInfoPrice = function(table, url) {
 		})
 	}).then(function() {
 		db.close();
-		console.log("finish");
+		console.log("updateInfoPrice finish");
+		return null;
 	}).catch(function(e) {
 		console.log(e);
 	})
+}
+
+export var updateMobileInfoPrice = function(table, url) {
+	let date = new Date();
+	db.close();
+	return db.open(table).then(function() {
+		return db.collection.find({
+			price: null
+		}, {
+			anjukeId: 1
+		}).toArray()
+	}).then(function(arr) {
+		return helper.iteratorArr(arr, function(it) {
+			var u = url + it.anjukeId;
+			console.log(u)
+			return getCommunityById(u).then(function($) {
+				var _id = it._id;
+				var price = parseFloat($(".comm-basic .price em").text().replace(/[^0-9.]/ig, ""));
+				var $strong = $(".contrast .st");
+				var upDown = $strong.attr("class").replace("st", "").replace(/(^\s*)|(\s*$)/g, "");
+				var compare = parseFloat($strong.text().replace(/[^0-9.]/ig, ""));
+
+				return {
+					compare,
+					upDown,
+					price,
+					//point,
+					//commId,
+					_id
+				}
 
 
+			}).then(function(data) {
+				console.log(data)
+				return db.collection.update({
+					_id: db.ObjectId(data._id)
+				}, {
+					$set: {
+						compare: data.compare,
+						price: data.price,
+						//commId: data.id,
+						upDown: data.upDown,
+						date: date
+							//point: data.point
+					}
+				}).then(function(t) {
+
+					console.log(u, "price success")
+					return null;
+				}).catch(function(e) {
+					console.log(u, "price error")
+					db.close();
+					console.log(e);
+					return
+				})
+			})
+		})
+	}).then(function() {
+		db.close();
+		console.log("updateInfoPrice finish");
+		return null;
+	}).catch(function(e) {
+		console.log(e);
+	})
 }
 
 export var priceToMonth = function(fromTable, toTable) {
@@ -208,6 +290,7 @@ export var priceToMonth = function(fromTable, toTable) {
 	}).then(function() {
 		db.close();
 		console.log("==finish==", "priceToMonth")
+		return null;
 	}).catch(function(e) {
 		db.close();
 		console.log(e, "priceToMonth")
