@@ -7,8 +7,12 @@ export var loadSpace = function(geoURL, name) {
 	return loader.postJSON(geoURL, {
 		kw: name
 	}).then(function(json) {
-		//console.log(json)
-		return (json)
+		//增加操作演示方式调用频率过大
+		return new Promise(function(r, j) {
+			setTimeout(function() {
+				r(json);
+			}, 100)
+		})
 	}).catch(function(e) {
 		console.log(name, "error");
 		return loadSpace(geoURL, name)

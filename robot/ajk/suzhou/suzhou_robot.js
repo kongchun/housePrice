@@ -25,6 +25,6 @@ function updatePrice() {
 }
 
 //每月1号 15号 28号更新价格 每月28号转储价格
-new cronJob('0 0 0 1,15,28 * ? ', function() {
+new cronJob('0 0 0 1,15,28 *', function() {
 	updatePrice()
 }, null, true, 'Asia/Shanghai');
