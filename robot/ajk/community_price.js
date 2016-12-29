@@ -180,7 +180,39 @@ export var updateInfoPrice = function(table, url) {
 
 }
 
+export var priceToMonth = function(fromTable, toTable) {
+	db.close();
+	return db.open(fromTable).then(function() {
+		return db.collection.find({}, {
+			_id: 0,
+			name: 1,
+			price: 1,
+			anjukeId: 1,
+			compare: 1,
+			upDown: 1
 
+		}).toArray()
+	}).then(function(data) {
+		db.close();
+		var date = new Date();
+		return data.map((i) => {
+			i.year = date.getFullYear();
+			i.month = date.getMonth() + 1;
+			i.date = date;
+			return i;
+		})
+	}).then(function(data) {
+		return db.open(toTable).then(function() {
+			return db.collection.insertMany(data);
+		})
+	}).then(function() {
+		db.close();
+		console.log("==finish==", "priceToMonth")
+	}).catch(function(e) {
+		db.close();
+		console.log(e, "priceToMonth")
+	})
+}
 
 // console.log(db.ObjectId)
 // var table = "suzhou_anjuke_community";

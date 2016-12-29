@@ -5,9 +5,13 @@ var community_price = require('../community_price.js');
 var geoURL = "http://suzhou.anjuke.com/ajax/geomap/";
 var table = "suzhou_anjuke_community";
 var community_url = "http://suzhou.anjuke.com/community/view/"
+var tableOpen = "suzhou_anjuke_area";
+
+var tableMonth = "suzhou_anjuke_month";
 
 //1.抓取所有小区对应抓取的地址信息，如果有小区信息同时抓取 (初始化)
-var tableOpen = "suzhou_anjuke_area";
+
+
 //community.loadAll(tableOpen, table);
 
 //2.1获取小区地理信息 (初始化)
@@ -41,4 +45,4 @@ var tableOpen = "suzhou_anjuke_area";
 //TODO 
 
 //4.3记录每月的价格
-//TODO
+//community_price.priceToMonth(table, tableMonth);
