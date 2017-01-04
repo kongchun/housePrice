@@ -11,7 +11,7 @@ export var loadSpace = function(geoURL, name) {
 		return new Promise(function(r, j) {
 			setTimeout(function() {
 				r(json);
-			}, 100)
+			}, 200)
 		})
 	}).catch(function(e) {
 		console.log(name, "error");

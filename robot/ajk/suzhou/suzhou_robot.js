@@ -1,6 +1,7 @@
 var community_gps = require('../community_gps.js');
 var community = require('../community.js');
 var community_price = require('../community_price.js');
+
 var geoURL = "http://suzhou.anjuke.com/ajax/geomap/";
 var table = "suzhou_anjuke_community";
 var tableMonth = "suzhou_anjuke_month";
@@ -25,6 +26,7 @@ function updatePrice() {
 }
 
 //每月1号 15号 28号更新价格 每月28号转储价格
-new cronJob('0 0 0 1,15,28 *', function() {
-	updatePrice()
-}, null, true, 'Asia/Shanghai');
+// new cronJob('0 0 0 1,15,28 *', function() {
+// 	updatePrice()
+// }, null, true, 'Asia/Shanghai');
+//

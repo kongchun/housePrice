@@ -37,6 +37,20 @@ export var updatePrice = function(table, city) {
 
 }
 
+export var clearPrice = function(table) {
+	db.close();
+	return db.open(table).then(function() {
+		return db.collection.updateMany({}, {
+			$set: {
+				price: null
+			}
+		})
+	}).then(function() {
+		return;
+		console.log("clear price");
+	})
+}
+
 //updatePrice()
 
 // getPrice(url).then(function(data) {

@@ -22,7 +22,10 @@ var table = "suzhou_anjuke_area";
 //TODO
 
 //4.1更新区域平均价格
-district_price.updatePrice(table, "suzhou");
+district_price.clearPrice(table).then(function() {
+	district_price.updatePrice(table, "suzhou");
+})
+
 
 //4.2平均价格动态定时运行 (容错机制)
 //TODO 
