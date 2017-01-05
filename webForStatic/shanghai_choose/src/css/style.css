@@ -269,8 +269,22 @@ a {
 
 .pricing-chart-tier .panel{
   position: relative;
-  padding-top: 140px;
+  padding-top: 80px;
   opacity: 0.95;
+}
+
+.tier-features{
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.tier-features .unavailable {
+    color: #d1d1d1;
+}
+
+.tier-features li {
+    position: relative;
+    padding: 5px;
 }
 
 .navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text {
