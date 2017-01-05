@@ -6895,19 +6895,28 @@ var areaData = [{
 	// 	"point": {
 	// 		"lat": 31.21774,
 	// 		"lng": 121.521763
+	// 	// 	}
+	// }, {
+	// 	"_id": "5852401b48cab329f8eb195c",
+	// 	"district": "上海周边",
+	// 	"area": "嘉兴",
+	// 	"py": "jiaxinga",
+	// 	"letter": "J",
+	// 	"price": "8516",
+	// 	"compare": "0.74",
+	// 	"upDown": "up",
+	// 	"month": "12",
+	// 	"point": {
+	// 		"lat": 30.750912,
+	// 		"lng": 120.762045
 	// 	}
-}, {
-	"_id": "5852401b48cab329f8eb195c",
-	"district": "上海周边",
-	"area": "嘉兴",
-	"py": "jiaxinga",
-	"letter": "J",
-	"price": "8516",
-	"compare": "0.74",
-	"upDown": "up",
-	"month": "12",
-	"point": {
-		"lat": 30.750912,
-		"lng": 120.762045
-	}
 }]
+
+
+var arr = areaData.map((i) => {
+	return {
+		district: i.district,
+		boundary: i.boundary
+	}
+})
+console.log(JSON.stringify(arr));
