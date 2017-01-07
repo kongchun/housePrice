@@ -355,3 +355,31 @@ a {
 .container-login{
   margin: 30px auto;
 }
+
+.sidebar ul.nav.nav-sidebar li.nav-parent > a:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  font-size: 16px;
+  font-size: 1.6rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 14px 25px;
+}
+.sidebar ul.nav.nav-sidebar li.nav-parent.nav-expanded > a:after {
+  content: "\e113";
+}
+
+ .nav-children {
+    box-shadow: none;
+    background: white;
+    display: none;
+    padding: 10px 0;
+}
+.nav-children li a {
+    padding: 5px 15px 5px 50px;
+}
+
+.nav-children li a .unavailable {
+    color: #d1d1d1;
+}

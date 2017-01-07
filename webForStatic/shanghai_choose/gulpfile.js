@@ -12,8 +12,8 @@ var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 
 gulp.task('vendor-css', function() {
-	gulp.src('node_modules/bootstrap/dist/fonts/*.*')
-		.pipe(gulp.dest('public/fonts'));
+	gulp.src('node_modules/bootstrap/fonts/*.*')
+		.pipe(gulp.dest('dist/fonts'));
 
 	return gulp.src([
 			'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
@@ -54,7 +54,7 @@ gulp.task('browserify', function() {
 	gulp.src('src/app/*.js').pipe(uglify()).pipe(gulp.dest('dist/js'));
 	gulp.src('src/data.js').pipe(uglify()).pipe(gulp.dest('dist/js'));
 
-	return browserify(['src/main.js', 'src/RichMarker.js', 'src/GeoUtils.js'])
+	return browserify(['src/main.js', 'src/RichMarker.js', 'src/GeoUtils.js', "src/heatmap.js"])
 		.transform(babelify, {
 			presets: ['es2015', 'react', 'stage-0']
 		})

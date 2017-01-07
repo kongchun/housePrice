@@ -9,53 +9,111 @@
     <link rel="stylesheet" href="css/vendor.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="http://api.map.baidu.com/getscript?v=2.0&ak=8hr2ZB5zsFI6dcId9Uj6ORy2kuLIP8vA"></script>
+    <script src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-            <a class="navbar-brand" href="#"> <img width="300" height="30" class="img-responsive" alt="Cloud Admin Logo" src="images/logo.png"></a>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"> <img width="300" height="30" class="img-responsive" alt="Cloud Admin Logo" src="images/logo.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            
-          </ul>
-         
-        </div>
-      </div>
     </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="nav-parent"><a href="#">区域分析</a>
+                        <ul class="nav nav-children district">
+                            <li><a><input type="checkbox" checked class="people"><span class="text"> 人口数</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 年龄分布</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 男女比例</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 消费能力</span></a></li>
+                        </ul>
+                    </li>
 
-  <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="#">行政区域</a></li>
-            <li><a href="#">地铁网络</a></li>
-            <li><a href="#">区域房价</a></li>
-          </ul>
-   
+                    <li class="nav-parent"><a href="http://www.data4pro.com/labs/genesis/hotmap.html" taget="_blank">商圈分析(演示)</a>
+                        <ul class="nav nav-children trading">
+                            <li><a><input type="checkbox" class="lw" value="卢湾商圈"><span class="text"> 卢湾商圈</span></a></li>
+                            <li><a><input type="checkbox" class="sl" value="三林商圈"><span class="text"> 三林商圈</span></a></li>
+                            <li><a><input type="checkbox" class="dn" value="大宁商圈" disabled><span class="text unavailable"> 大宁商圈</span></a></li>
+                            <li><a><input type="checkbox" class="bwt" value="北外滩商圈" disabled><span class="text unavailable"> 北外滩商圈</span></a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-parent"><a href="http://www.data4pro.com/labs/genesis/hotmap.html">行业分析(演示)</a>
+                        <ul class="nav nav-children">
+                            <li><a><input type="checkbox"><span class="text"> 餐饮类</span></a></li>
+                            <li><a><input type="checkbox"><span class="text "> 购物类</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 旅游类</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 车房类</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 金融类</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 教育类</span></a></li>
+                        </ul>
+                    </li>
+
+
+                     <li class="nav-parent"><a href="#">地铁分析</a>
+                        <ul class="nav nav-children subway">
+                            <li><a><input type="checkbox" value="1"><span class="text"> 1号线</span></a></li>
+                            <li><a><input type="checkbox" value="2"><span class="text"> 2号线</span></a></li>
+                            <li><a><input type="checkbox" value="3"><span class="text "> 3号线</span></a></li>
+                            <li><a><input type="checkbox" value="4"><span class="text "> 4号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 5号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 6号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 7号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 8号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 9号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 10号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 11号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 12号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 13号线</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 16号线</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent"><a href="http://www.data4pro.com/labs/house/shanghai" taget="_blank">房价分析(演示)</a>
+                        <ul class="nav nav-children">
+                            <li><a><input type="checkbox"><span class="text"> 区域</span></a></li>
+                            <li><a><input type="checkbox"><span class="text"> 板块</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 小区</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-parent"><a href="#">商业布局</a>
+                        <ul class="nav nav-children">
+                            <li><a><input type="checkbox"><span class="text"> 衣优库</span></a></li>
+                            <li><a><input type="checkbox"><span class="text"> 电影院</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 欧尚</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 大润发</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 全家</span></a></li>
+                            <li><a><input type="checkbox" disabled><span class="text unavailable"> 华润万家</span></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div id="map"></div>
+            </div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div id="map"></div>
-        </div>
-      </div>
     </div>
-       
-
-     
-
-    <script src="js/data.js"></script>   
+    <script src="js/data.js"></script>
     <script src="js/vendor.js"></script>
     <script src="js/vendor.bundle.js"></script>
     <script src="js/bundle.js"></script>
 </body>
 
 </html>
+
