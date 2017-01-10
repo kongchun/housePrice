@@ -3,10 +3,17 @@ var community = require('../community.js');
 var geoURL = "http://shanghai.anjuke.com/ajax/geomap/";
 var table = "shanghai_anjuke_community";
 
+var community = require('../community.js');
+var community_price = require('../community_price.js');
+
 //1.抓取所有小区对应抓取的地址信息，如果有小区信息同时抓取 (初始化)
 var tableOpen = "shanghai_anjuke_area";
 var table = "shanghai_anjuke_community";
-community.loadAll(tableOpen, table);
+
+var community_url = "http://shanghai.anjuke.com/community/view/"
+var community_mobile_url = "http://m.anjuke.com/su/community/"
+
+//community.loadAll(tableOpen, table);
 
 //2.1获取小区地理信息 (初始化)
 //community_gps.loadPoint(table, geoURL);
@@ -34,3 +41,22 @@ community.loadAll(tableOpen, table);
 
 //4.3记录每月的价格
 //TODO
+//
+//updatePrice()
+
+function updatePrice() {
+	community_price.clearPrice(table).then(function() {
+		return community_price.updatePrice(table, geoURL);
+	}).then(function() {
+		return community_price.updateInfoPrice(table, community_url);
+	}).then(function() {
+		var date = new Date();
+		if (date.getDate() == 28) {
+			return community_price.priceToMonth(table, tableMonth);
+		}
+	}).catch(function(e) {
+		console.log(e)
+	})
+}
+
+community_price.updateInfoPrice(table, community_url);
