@@ -4,15 +4,15 @@ var nameIndex = {};
 
 
 
-function getPolyline(path) {
+function getPolyline(path, color) {
 	var points = path.map((i) => {
 
 		return new BMap.Point(i.lng, i.lat);
 	})
 	var polyline = new BMap.Polyline(points, {
-		strokeColor: "blue",
+		strokeColor: color || "blue",
 		strokeWeight: 6,
-		strokeOpacity: 0.5
+		strokeOpacity: 0.75
 	});
 	return polyline
 }
@@ -23,9 +23,9 @@ var options = {
 	color: 'blue'
 }
 
-function getMarker(arr) {
+function getMarker(arr, color) {
 
-
+	options.color = color;
 	var points = arr.map((i) => {
 
 		return new BMap.Point(i.position.lng, i.position.lat);
@@ -40,8 +40,8 @@ export var init = function(map) {
 	console.log("start init line");
 	data.forEach(function(line, i) {
 		arr.push({
-			polyline: getPolyline(line.path),
-			marker: getMarker(line.station)
+			polyline: getPolyline(line.path, line.color),
+			marker: getMarker(line.station, line.color)
 		})
 		nameIndex[line.name] = i
 	})
@@ -66,10 +66,17 @@ export var show = function(map, i) {
 	})
 }
 
-export var hide = function(map) {
+export var hide = function(map, i) {
+	if (i) {
+		var lineName = `地铁${i}号线`;
+		var i = arr[nameIndex[lineName]];
+		map.removeOverlay(i.polyline);
+		map.removeOverlay(i.marker);
+		return;
+	}
 	arr.forEach(function(i) {
 		map.removeOverlay(i.polyline);
 		map.removeOverlay(i.marker);
-		console.log("show line")
+
 	})
 }

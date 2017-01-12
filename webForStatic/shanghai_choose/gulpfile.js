@@ -35,9 +35,10 @@ gulp.task('vendor-css', function() {
 gulp.task('vendor', ['vendor-css'], function() {
 	return gulp.src([
 			'node_modules/jquery/dist/jquery.js',
-			'node_modules/bootstrap/dist/js/bootstrap.js'
+			'node_modules/bootstrap/dist/js/bootstrap.js',
 			//'node_modules/headroom.js/dist/headroom.js',
 			//'node_modules/headroom.js/dist/jQuery.headroom.js'
+			'src/RichMarker.js', 'src/GeoUtils.js', "src/heatmap.js", "src/gps.js"
 		]).pipe(concat('vendor.js'))
 		.pipe(uglify())
 		//.pipe(gulpif(production, uglify({mangle: false})))
@@ -52,9 +53,9 @@ gulp.task('vendor', ['vendor-css'], function() {
 
 gulp.task('browserify', function() {
 	gulp.src('src/app/*.js').pipe(uglify()).pipe(gulp.dest('dist/js'));
-	gulp.src('src/data.js').pipe(uglify()).pipe(gulp.dest('dist/js'));
+	//gulp.src('src/data.js').pipe(uglify()).pipe(gulp.dest('dist/js'));
 
-	return browserify(['src/main.js', 'src/RichMarker.js', 'src/GeoUtils.js', "src/heatmap.js"])
+	return browserify(['src/main.js'])
 		.transform(babelify, {
 			presets: ['es2015', 'react', 'stage-0']
 		})

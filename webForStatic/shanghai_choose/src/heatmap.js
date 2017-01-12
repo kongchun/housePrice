@@ -685,7 +685,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
     /** 
      * @exports HeatmapOverlay as BMapLib.HeatmapOverlay 
      */
-    var HeatmapOverlay  = 
+    var HeatmapOverlay =
     /**
      * 热力图的覆盖物
      * @class 热力图的覆盖物

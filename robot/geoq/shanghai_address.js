@@ -19,6 +19,81 @@ var loadBrand = function() {
 	loadMoreType(table, type, data)
 }
 
+// db.district.find({}).forEach((it)=> { 
+//     var data = ["乐购", "华润万家", "家乐福"]
+//     data.forEach((name,i)=>{
+//         var count = db.brand.find({district:it.district,name:name}).count();
+//         db.brand_count.save({district:it.district,name:name,point:it.point,count:count})
+//     })
+// });
+// 
+var data = ["乐购", "华润万家", "家乐福"]
+
+
+function exportTable(table, data) {
+	helper.iteratorArr(data, function(it) {
+		var obj = {};
+		var x = obj[it] = {};
+		console.log(obj)
+		var countTable = table + "_count";
+		return db.open(countTable).then(function() {
+			return db.collection.find({
+				name: it
+			}, {
+				_id: 0,
+				count: 1,
+				district: 1,
+				point: 1
+			}).toArray()
+		}).then(function(data) {
+			db.close();
+			//console.log(data);
+			x["district_count"] = (data);
+			return db.open(table).then(function() {
+				return db.collection.find({
+					name: it
+				}, {
+					_id: 0,
+					location: 1,
+					dbname: 1
+				}).toArray()
+			})
+
+		}).then(function(data) {
+			db.close();
+			x["area"] = (data);
+			console.log(JSON.stringify(obj))
+			return obj;
+		}).catch(function(e) {
+			console.log(e);
+		})
+	})
+}
+
+
+
+// data.forEach((i) => {
+// 	var obj = {};
+// 	json(obj, i);
+// })
+
+// function json(obj, name) {
+// 	db.open("brand_count").then(function() {
+// 		return db.collection.find({
+// 			name: name
+// 		}, {
+// 			_id: 0,
+// 			count: 1,
+// 			district: 1,
+// 			point: 1
+// 		}).toArray()
+// 	}).then(function(data) {
+// 		db.close();
+// 		db.open("")
+// 		obj[name] = data;
+// 		console.log(JSON.stringify(obj))
+// 	})
+// }
 
 var loadPublic = function() {
 	var table = "public";
@@ -27,12 +102,16 @@ var loadPublic = function() {
 	loadMoreType(table, type, data)
 }
 
+exportTable("public", ["加油站", "ATM"]);
+
 var loadCompany = function() {
 	var table = "company";
 	var data = ["中国人保", "中国人寿"]
 	var type = "company";
 	loadMoreType(table, type, data)
 }
+
+//exportTable("company", ["中国人保", "中国人寿"]);
 
 var loadMoreType = function(table, type, data) {
 	var arr = [];
@@ -73,21 +152,20 @@ var loadMoreType = function(table, type, data) {
 		}).then(function(data) {
 			var countTable = table + "_count";
 			db.close();
-			return db.open(countTable).then(function() {
-				return db.collection.insert({
-					district: district,
-					name: name,
-					count: data.length,
-					type: type
-				})
-			}).then(function() {
-				db.close();
-				if (data.length == 0) {
-					return null;
-				}
-				return db.open(table).then(function() {
-					return db.collection.insertMany(data)
-				})
+			// return db.open(countTable).then(function() {
+			// 	return db.collection.insert({
+			// 		district: district,
+			// 		name: name,
+			// 		count: data.length,
+			// 		type: type
+			// 	})
+			// }).then(function() {
+			// 	db.close();
+			if (data.length == 0) {
+				return null;
+			}
+			return db.open(table).then(function() {
+				return db.collection.insertMany(data)
 			}).then(function() {
 				db.close();
 				return;
@@ -135,4 +213,4 @@ export var loadPlaceAPI = function(search) {
 
 //loadBrand()
 //loadPublic()
-loadCompany()
+//loadCompany()

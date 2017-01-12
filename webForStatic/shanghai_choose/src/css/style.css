@@ -72,17 +72,15 @@ body {
  */
 
 .main {
-  padding: 20px;
+  padding: 0px;
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
 }
-.main .page-header {
-  margin-top: 0;
-}
+
 
 
 /*
@@ -121,9 +119,6 @@ a {
 	padding:10px 15px;
 }
 
-#map{
-	height:500px;
-}
 #map label{
 	max-width: 500px;
 	max-width: 500px;
@@ -377,7 +372,7 @@ a {
     padding: 10px 0;
 }
 .nav-children li a {
-    padding: 5px 15px 5px 50px;
+    padding: 5px 15px 5px 30px;
 }
 
 .nav-children li a .unavailable {
