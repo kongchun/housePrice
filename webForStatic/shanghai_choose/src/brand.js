@@ -10,11 +10,34 @@ var marker = [];
 
 //console.log(allData);
 
-export var toggleShow = function(map, arr) {
+export var toggleShow = function(pie, chart, map, arr) {
 	showCollection(map, arr);
-	showLabel(map, arr);
+	//showLabel(map, arr);
+	showPie(pie, arr);
 };
 //showLabel(1, ["ATM"])
+//showPie(1, ["ATM", "乐购"]);
+
+function showPie(pie, arr) {
+	let obj = {};
+	arr.forEach((it, i) => {
+			allData[it].district_count.forEach((j) => {
+				var district = j.district;
+
+				if (i == 0) {
+					obj[district] = []
+				}
+				var count = j.count;
+
+				obj[district].push({
+					name: it,
+					value: count
+				});
+			})
+		})
+		//console.log(obj)
+	pie.setData(obj);
+}
 
 function showLabel(map, arr) {
 
@@ -113,7 +136,7 @@ function getDataByTypeName(name) {
 
 function getPoints(data) {
 	var points = data.map((i) => {
-		console.log(i.location.lng, i.location.lat)
+		//console.log(i.location.lng, i.location.lat)
 		return new BMap.Point(i.location.lng, i.location.lat)
 	})
 	return points

@@ -38,6 +38,7 @@ gulp.task('vendor', ['vendor-css'], function() {
 			'node_modules/bootstrap/dist/js/bootstrap.js',
 			//'node_modules/headroom.js/dist/headroom.js',
 			//'node_modules/headroom.js/dist/jQuery.headroom.js'
+			'src/echarts.min.js', "src/macarons.js", "src/bmap.min.js", //echart
 			'src/RichMarker.js', 'src/GeoUtils.js', "src/heatmap.js", "src/gps.js"
 		]).pipe(concat('vendor.js'))
 		.pipe(uglify())

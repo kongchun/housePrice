@@ -4,31 +4,93 @@ var line = require("./line.js");
 var trading = require("./trading.js");
 var brand = require("./brand.js");
 var house = require("./house.js");
+var pie = require("./pieDistrict.js");
 $(function() {
 	initNav();
-
-
-
-	var map = initMap();
+	ChartMap.init();
+	var chart = ChartMap.getChart();
+	var map = ChartMap.getMap();
 
 	people.init(map);
 	trading.init(map);
-	//people.show(map);
-	// //trading.init(map);
-	// //trading.show(map, "三林商圈");
-
 	line.init(map);
-	// // line.show(map, 1);
-	// // line.show(map, 2);
-	// // line.show(map, 3);
-	// // line.show(map, 4);
-	// //line.hide(map);
-	// //
-	initEvent(map);
+
+	pie.init(chart, map);
+	initEvent(chart, map);
+
 
 })
 
-function initEvent(map) {
+
+var ChartMap = {
+	chart: null,
+	map: null,
+	init: function() {
+		this.initChart();
+		this.initMap();
+	},
+
+	create: function(id) {
+		var myChart = echarts.init(document.getElementById(id), "macarons");
+		return myChart;
+	},
+
+	initChart: function() {
+		var myChart = this.create("map");
+		var option = {
+			bmap: {
+				center: [121.523859, 31.258039],
+				zoom: 12,
+				roam: true,
+
+				mapStyle: {
+					styleJson: [{
+						"featureType": "all",
+						"elementType": "all",
+						"stylers": {
+							"lightness": 61,
+							"saturation": -70
+						}
+					}]
+				}
+			},
+			legend: {
+				orient: 'vertical',
+				right: 20,
+				top: 15,
+				padding: 10,
+				backgroundColor: "rgba(255,255,255,0.8)",
+				data: []
+			},
+			series: [{
+				type: 'pie',
+				data: []
+			}]
+		}
+
+		myChart.setOption(option);
+		this.chart = myChart;
+	},
+	getChart: function() {
+		return this.chart;
+	},
+	getMap: function() {
+		return this.map;
+	},
+	initMap: function() {
+		var map = this.chart.getModel().getComponent('bmap').getBMap();
+		var top_left_navigation = new BMap.NavigationControl({
+			//type: BMAP_NAVIGATION_CONTROL_SMALL
+		});
+		map.addControl(top_left_navigation);
+		map.removeEventListener("click");
+		this.map = map;
+	}
+}
+
+
+
+function initEvent(chart, map) {
 	var peopleChk = $(".district .people");
 	peopleChk.change(function() {
 		if ($(this)[0].checked) {
@@ -71,7 +133,7 @@ function initEvent(map) {
 		$(".brand input:checked").each(function() {
 			arr.push(this.value);
 		})
-		brand.toggleShow(map, arr);
+		brand.toggleShow(pie, chart, map, arr);
 	})
 
 	var housePrice = $(".house .housePrice");
@@ -85,33 +147,7 @@ function initEvent(map) {
 	})
 }
 
-function initMap() {
-	var map = new BMap.Map("map"); // 创建地图实例  
-	var top_left_navigation = new BMap.NavigationControl();
-	var top_left_control = new BMap.ScaleControl({
-		anchor: BMAP_ANCHOR_TOP_RIGHT
-	}); // 左上角，添加比例尺
-	//map.centerAndZoom("上海市", 12); // 初始化地图，设置中心点坐标和地图级别  
-	map.addControl(top_left_navigation);
-	//map.addControl(top_left_control);
-	map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
-	map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
 
-	var point = new BMap.Point(121.523859, 31.258039);
-	map.centerAndZoom(point, 12);
-
-	map.setMapStyle({
-		styleJson: [{
-			"featureType": "all",
-			"elementType": "all",
-			"stylers": {
-				"lightness": 61,
-				"saturation": -70
-			}
-		}]
-	});
-	return map;
-}
 
 function initNav() {
 
