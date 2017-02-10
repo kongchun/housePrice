@@ -4,6 +4,7 @@ var line = require("./line.js");
 var trading = require("./trading.js");
 var brand = require("./brand.js");
 var house = require("./house.js");
+var shop = require("./shop.js");
 var pie = require("./pieDistrict.js");
 $(function() {
 	initNav();
@@ -48,8 +49,59 @@ var ChartMap = {
 						"featureType": "all",
 						"elementType": "all",
 						"stylers": {
-							"lightness": 61,
-							"saturation": -70
+							"lightness": 30,
+							"saturation": -75
+						}
+					}, {
+						"featureType": "road",
+						"elementType": "geometry.fill",
+						"stylers": {
+							"color": "#ffffff",
+							"visibility": "on"
+						}
+					}, {
+						"featureType": "subway",
+						"elementType": "geometry.fill",
+						"stylers": {
+							"color": "#d9d9d9"
+						}
+					}, {
+						"featureType": "road",
+						"elementType": "geometry.stroke",
+						"stylers": {
+							"color": "#f3f3f3",
+							"visibility": "on"
+						}
+					}, {
+						"featureType": "poi",
+						"elementType": "all",
+						"stylers": {
+							"visibility": "off"
+						}
+					}, {
+						"featureType": "all",
+						"elementType": "labels.text.fill",
+						"stylers": {
+							"color": "#828282"
+						}
+					}, {
+						"featureType": "all",
+						"elementType": "labels.text.stroke",
+						"stylers": {
+							"color": "#ffffff"
+						}
+					}, {
+						"featureType": "subway",
+						"elementType": "labels.icon",
+						"stylers": {
+							"color": "#ffffff",
+							"visibility": "off"
+						}
+					}, {
+						"featureType": "highway",
+						"elementType": "labels",
+						"stylers": {
+							"visibility": "off"
 						}
 					}]
 				}
@@ -143,6 +195,16 @@ function initEvent(chart, map) {
 			house.show(map);
 		} else {
 			house.hide(map);
+		}
+	})
+
+	var shopPrice = $(".house .shopPrice");
+	shopPrice.change(function() {
+		console.log(this.checked)
+		if ($(this)[0].checked) {
+			shop.show(map);
+		} else {
+			shop.hide(map);
 		}
 	})
 }

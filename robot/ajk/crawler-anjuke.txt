@@ -1,0 +1,15 @@
+源码
+https://github.com/jinghai/crawler-anjuke
+
+检出
+git clone https://github.com/jinghai/crawler-anjuke
+
+安装依赖
+cd crawler-anjuke 
+npm i
+
+服务运行
+(注意conf.js中logLevel设置为：info),为了能够分清机器中运行了哪些爬虫，所以对应 爬虫程序入口的js名称要有所不同，建议与爬虫目录保持一致，例如应该把anjuke目录下 的run.js改名为anjuke.js(回头我在源码里改掉)
+cd 爬虫目录
+node 程序入口.js &
+服务器ip:192.168.2.56
