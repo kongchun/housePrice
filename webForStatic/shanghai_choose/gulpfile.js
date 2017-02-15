@@ -69,7 +69,7 @@ gulp.task('browserify', function() {
 
 
 gulp.task('styles', function() {
-	return gulp.src('src/css/style.css')
+	return gulp.src(['src/css/style.css','src/css/register.css'])
 		.pipe(plumber())
 		.pipe(less())
 		.pipe(autoprefixer())
@@ -77,7 +77,6 @@ gulp.task('styles', function() {
 		//.pipe(gulpif(production, cssmin()))
 		.pipe(gulp.dest('dist/css'));
 });
-
 gulp.task('images', function() {
 	return gulp.src(['src/images/*.*'])
 		//.pipe(revCollector())
