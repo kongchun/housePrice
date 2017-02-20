@@ -421,3 +421,9 @@ a {
   font-size:11px;
   margin:0 15px;
 }
+.sign-in{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 14px;
+    padding-bottom: 2px;
+}

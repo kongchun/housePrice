@@ -28,6 +28,7 @@ body{
     border-top: 0;
     color: #666;
     border-radius: 3%;
+    opacity: 0.95;
 }
 .login-box-msg{
     margin: 0;
@@ -80,10 +81,6 @@ body{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none
-}
-.btn-primary {
-    background-color: #2196f3;
-    border-color: #2196f3
 }
 .btn-primary.active,.btn-primary.focus,.btn-primary.hover,.btn-primary:active,.btn-primary:focus,.btn-primary:hover {
     background-color: #0d8aee!important;
