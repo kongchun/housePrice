@@ -23,7 +23,6 @@ function showPie(pie, arr) {
 	arr.forEach((it, i) => {
 			allData[it].district_count.forEach((j) => {
 				var district = j.district;
-
 				if (i == 0) {
 					obj[district] = []
 				}

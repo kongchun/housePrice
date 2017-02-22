@@ -1,4 +1,5 @@
 //来源：安居客
+//来源：安居客
 //获取所有地址信息
 var loader = require('../../../iRobots/loader.js');
 var helper = require('../../../iRobots/helper.js');
@@ -14,7 +15,7 @@ const page_size = 20;
 
 var loadBrand = function() {
 	var table = "brand";
-	var data = ["乐购", "华润万家", "家乐福"]
+	var data = ["世纪华联"]
 	var type = "brand";
 	loadMoreType(table, type, data)
 }
@@ -27,23 +28,23 @@ var loadBrand = function() {
 //     })
 // });
 // 
-var data = ["乐购", "华润万家", "家乐福"]
+var data = ["世纪华联"]
 
 
 function exportTable(table, data) {
+	var obj = {};
 	helper.iteratorArr(data, function(it) {
-		var obj = {};
+
 		var x = obj[it] = {};
-		console.log(obj)
+		//console.log(obj)
 		var countTable = table + "_count";
 		return db.open(countTable).then(function() {
 			return db.collection.find({
 				name: it
 			}, {
 				_id: 0,
-				count: 1,
-				district: 1,
-				point: 1
+				name: 0,
+				point: 0
 			}).toArray()
 		}).then(function(data) {
 			db.close();
@@ -62,15 +63,17 @@ function exportTable(table, data) {
 		}).then(function(data) {
 			db.close();
 			x["area"] = (data);
-			console.log(JSON.stringify(obj))
+			//console.log(JSON.stringify(obj))
 			return obj;
 		}).catch(function(e) {
 			console.log(e);
 		})
+	}).then(function(data) {
+		console.log(JSON.stringify(obj))
 	})
 }
 
-
+exportTable("brand", ["乐购", "华润万家", "家乐福", "世纪华联", "永辉", "苏果", "卜蜂莲花", "麦德龙", "大润发", "物美", "乐天玛特", "欧尚", "万宁", "沃尔玛", "易买得", "7-ELEVEN便利店", "OK便利店", "惠康超市", "百佳超市", "易买得", "个护化妆", "屈臣氏", "莎莎", "鸥美药妆", "丝芙兰", "亿莎", "悦诗风吟", "卓悦", "采活", "蝶翠诗", "幻彩", "惠之林", "娇兰佳人", "千色", "妍丽", "名创优品", "谜尚", "珠宝服饰", "C&A", "GAP", "H&M", "Zara", "迪卡侬", "优衣库", "六福", "周大福", "周生生", "万达国际电影城", "星美国际影城", "保利国际影城", "博纳国际电影城", "大地数字影院", "横店影视电影城", "金逸国际电影城", "UME国际影城", "餐饮", "Costa", "必胜客", "汉堡王", "肯德基", "麦当劳", "太平洋咖啡", "味千", "星巴克", "呷哺呷哺", "庆丰包子铺", "大众", "斯柯达", "宾利", "兰博基尼", "本田", "凯迪拉克", "别克", "雪佛兰", "欧宝", "萨博", "宝马", "劳斯莱斯", "日产", "英菲尼迪", "雷诺", "梅赛德斯-奔驰", "精灵", "丰田", "雷克萨斯", "斯巴鲁", "东风雪铁龙", "东风标致", "DS", "三菱", "菲亚特", "阿尔法-罗密欧", "法拉利", "玛莎拉蒂", "现代", "起亚", "东风悦达起亚", "福特", "马自达", "林肯", "捷豹", "路虎", "保时捷", "东风", "吉利", "沃尔沃", "奇瑞", "克莱斯勒", "吉普", "道奇", "荣威", "名爵", "观致"]);
 
 // data.forEach((i) => {
 // 	var obj = {};
@@ -102,7 +105,7 @@ var loadPublic = function() {
 	loadMoreType(table, type, data)
 }
 
-exportTable("public", ["加油站", "ATM"]);
+//exportTable("public", ["加油站", "ATM"]);
 
 var loadCompany = function() {
 	var table = "company";
@@ -132,6 +135,7 @@ var loadMoreType = function(table, type, data) {
 		return loadPlaceAPI(search).then(function(data) {
 			return data;
 		}).then(function(data) {
+			console.log(data)
 			data.map((i) => {
 				i.dbname = i.name;
 				i.name = name;
@@ -161,15 +165,16 @@ var loadMoreType = function(table, type, data) {
 			// 	})
 			// }).then(function() {
 			// 	db.close();
-			if (data.length == 0) {
-				return null;
-			}
-			return db.open(table).then(function() {
-				return db.collection.insertMany(data)
-			}).then(function() {
-				db.close();
-				return;
-			})
+			//----------
+			// if (data.length == 0) {
+			// 	return null;
+			// }
+			// return db.open(table).then(function() {
+			// 	return db.collection.insertMany(data)
+			// }).then(function() {
+			// 	db.close();
+			// 	return;
+			// })
 
 			console.log(data);
 		}).catch(function(e) {
@@ -214,3 +219,8 @@ export var loadPlaceAPI = function(search) {
 //loadBrand()
 //loadPublic()
 //loadCompany()
+//
+
+// map.loadGeocoderGPSAPI([121.402553, 31.257011]).then(function(data) {
+// 	console.log((data))
+// })
